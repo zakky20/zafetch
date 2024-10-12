@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Colors
+YELLOW="\033[0;33m"
+BLUE="\033[0;34m"
+NC="\033[0m"  # No Color
+
+# Fetch system information
+os=$(lsb_release -ds)
+kernel=$(uname -r)
+uptime=$(uptime -p)
+shell=$SHELL
+terminal=$TERM
+cpu=$(lscpu | grep "Model name" | awk -F ':' '{print $2}' | xargs)
+ram=$(free -h | grep "Mem" | awk '{print $2}')
+disk=$(df -h | grep "^/dev/" | awk '{print $1, $3 "/" $2}' | xargs)
+
+# Display the system info
+echo -e "${BLUE}OS:${NC} $os"
+echo -e "${BLUE}Kernel:${NC} $kernel"
+echo -e "${BLUE}Uptime:${NC} $uptime"
+echo -e "${BLUE}Shell:${NC} $shell"
+echo -e "${BLUE}Terminal:${NC} $terminal"
+echo -e "${BLUE}CPU:${NC} $cpu"
+echo -e "${BLUE}RAM:${NC} $ram"
+echo -e "${BLUE}Disk Usage:${NC} $disk"
+
